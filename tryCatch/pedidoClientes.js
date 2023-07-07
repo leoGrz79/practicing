@@ -96,13 +96,69 @@ const clients = [
 ];
 
 const findPersonByName = (name) => {
-  // seu código aqui
+  try {
+    for (const client of clients) {
+      if (name !== client.name) {
+        throw new Error('Pessoa não encontrada, tente novamente');
+      }
+      else {
+        if (client.name)
+          return `Destinatário: ${client.name}. Endereço: ${client.address.street}, ${client.address.number}, ${client.address.neighborhood}, ${client.address.state}. ${client.address.cep}`;
+      }
+    }
+  } catch (error) {
+    return error.message;
+  }
 };
 
 const findPersonByPosition = (position) => {
-  // seu código aqui
-};
+  try {
+    if (clients[position]) {
+      return `Cliente: ${clients[position].name}. email: ${clients[position].email}`;
+    }
+    else
+      throw new Error('Posição inválida. Tente novamente');
+  } catch (error) {
+    return error.message;
+  }
+}
+
+const findPeopleByStateX = (state) => {
+let clientByState = [];
+  try {
+    clients.forEach(client => {
+      if (client.address.state === state)
+        clientByState.push(client.name);
+      else {
+        if (clientByState.length === 0)
+          throw new Error('Ops, nenhuma pessoa mora nesse estado, tente outro')
+      }  
+    });
+  } catch (error) {
+      return error.message;    
+  }
+  return clientByState;
+}
 
 const findPeopleByState = (state) => {
-  // seu código aqui
-};
+  let clientByState = [];
+    try {
+      for (let i = 0; i < clients.length; i += 1) {
+        if (clients[i].address.state === state)
+          clientByState.push(clients[i].name);
+      }
+      if (clientByState.length === 0)
+        throw new Error('Ops, nenhuma pessoa mora nesse estado, tente outro')
+    } catch (error) {
+        return error.message;    
+    }
+    return clientByState;
+  }
+
+
+console.log('1 - ' + findPersonByName('João da Silva'));
+console.log('2 - ' + findPersonByName('Xablau'));
+console.log('3 - ' + findPersonByPosition(3));
+console.log('4 - ' + findPersonByPosition(19));
+console.log('5 - ' + findPeopleByState('RJ'));
+console.log('6 - ' + findPeopleByState('CA'));
