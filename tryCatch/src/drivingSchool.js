@@ -14,4 +14,6 @@ const studentRegister = (name, age) => {
   }
 };
 
-console.log(studentRegister('Leo', 17));
+module.exports = studentRegister;
+
+// console.log(studentRegister('Leo', 17));
